@@ -7,6 +7,9 @@ import com.bkr.microservice.springmicroservice.services.UserService;
 import com.bkr.microservice.springmicroservice.shared.dto.UserDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,20 +20,18 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping(path = "/{userid}")
-    public UserResponse getUser(@PathVariable String userid) {
+    @GetMapping(path = "/{userid}",produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<UserResponse> getUser(@PathVariable String userid) {
 
        UserDto userDto = userService.getUserByUserId(userid);
-
-//       UserResponse userResponse = new UserResponse(userDto.getUserId(),userDto.getUserName(),userDto.getLastName(),userDto.getEmail());
         UserResponse userResponse = new UserResponse();
         BeanUtils.copyProperties(userDto,userResponse);
 
-        return userResponse;
+        return new ResponseEntity<UserResponse>(userResponse,HttpStatus.OK);
     }
 
     @PostMapping
-    public UserResponse createUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest) {
 
         UserDto userDto = new UserDto();
         BeanUtils.copyProperties(userRequest,userDto);
@@ -41,11 +42,11 @@ public class UserController {
 
         BeanUtils.copyProperties(createUser,userResponse);
 
-        return userResponse;
+        return new ResponseEntity<UserResponse>(userResponse,HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/{userid}")
-    public UserResponse updateUser(@PathVariable String userid ,@RequestBody UserRequest userRequest) {
+    public ResponseEntity<UserResponse> updateUser(@PathVariable String userid ,@RequestBody UserRequest userRequest) {
 
         UserDto userDto = userService.getUserByUserId(userid);
         BeanUtils.copyProperties(userRequest,userDto);
@@ -54,13 +55,15 @@ public class UserController {
         UserResponse userResponse = new UserResponse();
         BeanUtils.copyProperties(updateUser,userResponse);
 
-        return userResponse;
+        return new ResponseEntity<UserResponse>(userResponse,HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping(path = "/{userid}")
-    public String deleteUser(@PathVariable String userid) {
+    public ResponseEntity<Object> deleteUser(@PathVariable String userid) {
 
-        return userService.deleteUser(userid);
+        userService.deleteUser(userid);
+
+        return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
     }
 
 
