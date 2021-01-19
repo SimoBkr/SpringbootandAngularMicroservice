@@ -2,17 +2,24 @@ package com.bkr.microservice.springmicroservice.responses;
 
 public class UserResponse {
 
-    private long id ;
+    private String userId ;
     private String userName;
     private String lastName;
     private String email;
+//
+//    public UserResponse(String userId, String userName, String lastName, String email) {
+//        this.userId = userId;
+//        this.userName = userName;
+//        this.lastName = lastName;
+//        this.email = email;
+//    }
 
-    public long getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {

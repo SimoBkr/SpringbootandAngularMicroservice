@@ -10,6 +10,12 @@ public interface UserService extends UserDetailsService{
     UserDto createUser(UserDto userDto);
 
     UserDto getUser(String email);
+
+    UserDto getUserByUserId(String userid);
+
+    UserDto updateUser(String userid ,UserDto userDto);
+
+    String deleteUser(String userid);
 }
 
 

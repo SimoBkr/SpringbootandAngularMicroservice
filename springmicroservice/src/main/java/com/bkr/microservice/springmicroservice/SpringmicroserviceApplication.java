@@ -21,4 +21,5 @@ public class SpringmicroserviceApplication {
 	public SpringApplicationContext springApplicationContext() {
 		return new SpringApplicationContext();
 	}
+
 }
