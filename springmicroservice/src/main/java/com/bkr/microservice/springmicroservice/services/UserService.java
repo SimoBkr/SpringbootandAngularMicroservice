@@ -5,6 +5,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 public interface UserService extends UserDetailsService{
 
     UserDto createUser(UserDto userDto);
@@ -16,6 +18,8 @@ public interface UserService extends UserDetailsService{
     UserDto updateUser(String userid ,UserDto userDto);
 
     String deleteUser(String userid);
+
+    List<UserDto> getUsers(int page,int limit);
 }
 
 

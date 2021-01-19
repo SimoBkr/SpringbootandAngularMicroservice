@@ -1,7 +1,8 @@
 package com.bkr.microservice.springmicroservice.controllers;
 
-import com.bkr.microservice.springmicroservice.entities.UserEntity;
+import com.bkr.microservice.springmicroservice.hundlers.UserException;
 import com.bkr.microservice.springmicroservice.requests.UserRequest;
+import com.bkr.microservice.springmicroservice.responses.UserErrorMessages;
 import com.bkr.microservice.springmicroservice.responses.UserResponse;
 import com.bkr.microservice.springmicroservice.services.UserService;
 import com.bkr.microservice.springmicroservice.shared.dto.UserDto;
@@ -10,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -20,7 +23,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping(path = "/{userid}",produces = MediaType.APPLICATION_XML_VALUE)
+    @GetMapping(path = "/{userid}", produces = {MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<UserResponse> getUser(@PathVariable String userid) {
 
        UserDto userDto = userService.getUserByUserId(userid);
@@ -30,8 +33,26 @@ public class UserController {
         return new ResponseEntity<UserResponse>(userResponse,HttpStatus.OK);
     }
 
+    @GetMapping
+    public List<UserResponse> getAllUsers(@RequestParam(value = "page" , defaultValue = "1") int page ,@RequestParam(value = "limit" , defaultValue = "2") int limit) {
+
+        List<UserResponse> usersResponse= new ArrayList<UserResponse>();
+
+        List<UserDto> users =userService.getUsers(page,limit);
+
+        for(UserDto userDto : users) {
+            UserResponse user = new UserResponse();
+            BeanUtils.copyProperties(userDto,user);
+
+            usersResponse.add(user);
+        }
+        return usersResponse;
+    }
+
     @PostMapping
-    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest) throws Exception {
+
+        if(userRequest.getUserName().isEmpty()) throw new UserException(UserErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
 
         UserDto userDto = new UserDto();
         BeanUtils.copyProperties(userRequest,userDto);

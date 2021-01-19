@@ -2,11 +2,15 @@ package com.bkr.microservice.springmicroservice.services.impl;
 
 import com.bkr.microservice.springmicroservice.Repository.UserRepository;
 import com.bkr.microservice.springmicroservice.entities.UserEntity;
+import com.bkr.microservice.springmicroservice.responses.UserResponse;
 import com.bkr.microservice.springmicroservice.services.UserService;
 import com.bkr.microservice.springmicroservice.shared.dto.UserDto;
 import com.bkr.microservice.springmicroservice.shared.dto.Utils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -48,6 +53,27 @@ public class UserServiceImpl implements UserService {
         BeanUtils.copyProperties(newUserEntity,userDtoController);
 
         return userDtoController;
+    }
+
+    @Override
+    public List<UserDto> getUsers(int page, int limit) {
+
+        if(page >0) page -=1;
+
+        List<UserDto> usersResponse = new ArrayList<>();
+        Pageable pageable = PageRequest.of(page, limit);
+
+        Page<UserEntity> userPage = userRepository.findAll(pageable);
+        List<UserEntity>users = userPage.getContent();
+
+        for(UserEntity userEntity : users) {
+            UserDto userDto = new UserDto();
+            BeanUtils.copyProperties(userEntity,userDto);
+
+            usersResponse.add(userDto);
+        }
+
+        return usersResponse;
     }
 
     @Override
