@@ -1,12 +1,23 @@
-package com.bkr.microservice.springmicroservice.requests;
+package com.bkr.microservice.springmicroservice.responses;
 
-public class AdresseRequest {
+import com.bkr.microservice.springmicroservice.shared.dto.UserDto;
 
-    private String city ;
+public class AdresseResponse {
+
+    private String addressId;
+    private String city;
     private String country;
     private String street;
-    private String postal ;
-    private String type ;
+    private String postal;
+    private String type;
+
+    public String getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
+    }
 
     public String getCity() {
         return city;

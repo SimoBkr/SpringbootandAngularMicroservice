@@ -1,6 +1,7 @@
 package com.bkr.microservice.springmicroservice.shared.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class UserDto implements Serializable {
 
@@ -13,6 +14,15 @@ public class UserDto implements Serializable {
     private String encryptedpassword;
     private String emailVerificationToken;
     private Boolean emailVerificationStatus = false;
+    private List<AdresseDto> adresses ;
+
+    public List<AdresseDto> getAdresses() {
+        return adresses;
+    }
+
+    public void setAdresses(List<AdresseDto> adresses) {
+        this.adresses = adresses;
+    }
 
     public long getId() {
         return id;

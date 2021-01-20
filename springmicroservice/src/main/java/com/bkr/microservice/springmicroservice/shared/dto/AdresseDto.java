@@ -1,12 +1,23 @@
-package com.bkr.microservice.springmicroservice.requests;
+package com.bkr.microservice.springmicroservice.shared.dto;
 
-public class AdresseRequest {
+public class AdresseDto {
 
-    private String city ;
+    private long id;
+    private String city;
     private String country;
     private String street;
-    private String postal ;
-    private String type ;
+    private String postal;
+    private String type;
+    private UserDto user;
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getCity() {
         return city;
@@ -46,5 +57,13 @@ public class AdresseRequest {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
     }
 }

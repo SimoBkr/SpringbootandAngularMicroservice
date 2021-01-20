@@ -1,6 +1,9 @@
 package com.bkr.microservice.springmicroservice.requests;
 
+import com.bkr.microservice.springmicroservice.shared.dto.AdresseDto;
+
 import javax.validation.constraints.*;
+import java.util.List;
 
 public class UserRequest {
 
@@ -22,7 +25,15 @@ public class UserRequest {
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$" , message = "ce mot de passe doit avoir des letters en Maj et Minsc et numero")
     private String password;
 
-    private List<AdresseRequest> Adresses ;
+    private List<AdresseRequest> adresses ;
+
+    public List<AdresseRequest> getAdresses() {
+        return adresses;
+    }
+
+    public void setAdresses(List<AdresseRequest> adresses) {
+        this.adresses = adresses;
+    }
 
     public String getUserName() {
         return userName;

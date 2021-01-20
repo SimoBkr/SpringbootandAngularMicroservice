@@ -1,11 +1,15 @@
 package com.bkr.microservice.springmicroservice.responses;
 
+import java.util.List;
+
 public class UserResponse {
 
     private String userId ;
     private String userName;
     private String lastName;
     private String email;
+
+    private List<AdresseResponse> adresses;
 //
 //    public UserResponse(String userId, String userName, String lastName, String email) {
 //        this.userId = userId;
@@ -13,6 +17,15 @@ public class UserResponse {
 //        this.lastName = lastName;
 //        this.email = email;
 //    }
+
+
+    public List<AdresseResponse> getAdresses() {
+        return adresses;
+    }
+
+    public void setAdresses(List<AdresseResponse> adresses) {
+        this.adresses = adresses;
+    }
 
     public String getUserId() {
         return userId;

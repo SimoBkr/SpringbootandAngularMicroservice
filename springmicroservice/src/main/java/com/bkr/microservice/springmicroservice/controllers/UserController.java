@@ -6,6 +6,7 @@ import com.bkr.microservice.springmicroservice.responses.UserErrorMessages;
 import com.bkr.microservice.springmicroservice.responses.UserResponse;
 import com.bkr.microservice.springmicroservice.services.UserService;
 import com.bkr.microservice.springmicroservice.shared.dto.UserDto;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,8 +56,12 @@ public class UserController {
 
         if(userRequest.getUserName().isEmpty()) throw new UserException(UserErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
 
-        UserDto userDto = new UserDto();
-        BeanUtils.copyProperties(userRequest,userDto);
+//        UserDto userDto = new UserDto();
+//        BeanUtils.copyProperties(userRequest,userDto);
+
+        ModelMapper modelMapper = new ModelMapper();
+
+        UserDto userDto = modelMapper.map(userRequest,UserDto.class);
 
         UserDto createUser = userService.createUser(userDto);
 
