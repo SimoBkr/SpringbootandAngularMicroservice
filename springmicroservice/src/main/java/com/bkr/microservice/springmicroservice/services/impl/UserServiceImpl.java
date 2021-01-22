@@ -2,10 +2,11 @@ package com.bkr.microservice.springmicroservice.services.impl;
 
 import com.bkr.microservice.springmicroservice.Repository.UserRepository;
 import com.bkr.microservice.springmicroservice.entities.UserEntity;
-import com.bkr.microservice.springmicroservice.responses.UserResponse;
 import com.bkr.microservice.springmicroservice.services.UserService;
+import com.bkr.microservice.springmicroservice.shared.dto.AdresseDto;
 import com.bkr.microservice.springmicroservice.shared.dto.UserDto;
 import com.bkr.microservice.springmicroservice.shared.dto.Utils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,26 +33,33 @@ public class UserServiceImpl implements UserService {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
     public UserDto createUser(UserDto user) {
 
         UserEntity checkUser = userRepository.findByEmail(user.getEmail());
 
         if(checkUser != null) throw  new RuntimeException("the user Alredy exist!");
 
-        UserEntity userEntity = new UserEntity();
-        BeanUtils.copyProperties(user , userEntity);
+        for(int i = 0 ; i< user.getAdresses().size(); i++) {
+            AdresseDto adresseDto = user.getAdresses().get(i);
+            adresseDto.setUser(user);
+//            adresseDto.setAdressId(utils.generateStringId(32));
+            adresseDto.setAddressId("klsjfkljs"+i);
+            user.getAdresses().set(i,adresseDto);
+        }
+
+        ModelMapper modelMapper = new ModelMapper();
+
+        UserEntity userEntity = modelMapper.map(user,UserEntity.class);
 
         userEntity.setEncryptedpassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userEntity.setUserId(utils.generateStringId(32));
 
+
         UserEntity newUserEntity = userRepository.save(userEntity);
 
-        UserDto userDtoController = new UserDto();
+        UserDto userDto =  modelMapper.map(newUserEntity, UserDto.class);
 
-        BeanUtils.copyProperties(newUserEntity,userDtoController);
-
-        return userDtoController;
+        return userDto;
     }
 
     @Override

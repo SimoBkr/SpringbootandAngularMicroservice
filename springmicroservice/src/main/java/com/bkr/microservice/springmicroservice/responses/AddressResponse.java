@@ -1,12 +1,31 @@
-package com.bkr.microservice.springmicroservice.requests;
+package com.bkr.microservice.springmicroservice.responses;
 
-public class AdresseRequest {
 
-    private String city ;
+class AddressResponse {
+
+    private String addressId;
+    private String city;
     private String country;
     private String street;
-    private String postal ;
-    private String type ;
+    private String postal;
+    private String type;
+    private UserResponse user;
+
+    public UserResponse getUser() {
+        return user;
+    }
+
+    public void setUser(UserResponse user) {
+        this.user = user;
+    }
+
+    public String getAdressId() {
+        return addressId;
+    }
+
+    public void setAdressId(String addressId) {
+        this.addressId = addressId;
+    }
 
     public String getCity() {
         return city;

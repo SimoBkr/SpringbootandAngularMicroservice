@@ -8,22 +8,14 @@ public class UserResponse {
     private String userName;
     private String lastName;
     private String email;
-
-    private List<AdresseResponse> adresses;
-//
-//    public UserResponse(String userId, String userName, String lastName, String email) {
-//        this.userId = userId;
-//        this.userName = userName;
-//        this.lastName = lastName;
-//        this.email = email;
-//    }
+    private List<AddressResponse> adresses;
 
 
-    public List<AdresseResponse> getAdresses() {
+    public List<AddressResponse> getAdresses() {
         return adresses;
     }
 
-    public void setAdresses(List<AdresseResponse> adresses) {
+    public void setAdresses(List<AddressResponse> adresses) {
         this.adresses = adresses;
     }
 

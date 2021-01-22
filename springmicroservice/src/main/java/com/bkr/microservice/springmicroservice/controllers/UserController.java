@@ -56,18 +56,13 @@ public class UserController {
 
         if(userRequest.getUserName().isEmpty()) throw new UserException(UserErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
 
-//        UserDto userDto = new UserDto();
-//        BeanUtils.copyProperties(userRequest,userDto);
-
         ModelMapper modelMapper = new ModelMapper();
 
         UserDto userDto = modelMapper.map(userRequest,UserDto.class);
 
         UserDto createUser = userService.createUser(userDto);
 
-        UserResponse userResponse = new UserResponse();
-
-        BeanUtils.copyProperties(createUser,userResponse);
+        UserResponse userResponse = modelMapper.map(createUser,UserResponse.class);
 
         return new ResponseEntity<UserResponse>(userResponse,HttpStatus.CREATED);
     }

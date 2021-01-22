@@ -1,40 +1,52 @@
-package com.bkr.microservice.springmicroservice.shared.dto;
+package com.bkr.microservice.springmicroservice.entities;
 
+import com.bkr.microservice.springmicroservice.shared.dto.UserDto;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
-public class AdresseDto implements Serializable {
+@Entity(name = "addresses")
+class AddresseEntity implements Serializable {
 
+    @Id @GeneratedValue
     private long id;
-    private String addressId;
-    private String city;
-    private String country;
-    private String street;
-    private String postal;
-    private String type;
-    private UserDto user;
 
-    public UserDto getUser() {
+    @Column(nullable = false)
+    private String addressId;
+
+    @Column(length = 20, nullable = false)
+    private String city ;
+
+    @Column(length = 20, nullable = false)
+    private String country;
+
+    @Column(length = 20, nullable = false)
+    private String street;
+
+    @Column(length = 20, nullable = false)
+    private String postal ;
+
+    @Column(length = 20, nullable = false)
+    private String type ;
+
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    private UserEntity user;
+
+    public UserEntity getUser() {
         return user;
     }
 
-    public void setUser(UserDto user) {
+    public void setUser(UserEntity user) {
         this.user = user;
     }
 
-    public String getAddressId() {
+    public String getAdressId() {
         return addressId;
     }
 
-    public void setAddressId(String addressId) {
-        this.addressId = addressId;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public void setAdressId(String addressId) {
+        addressId = addressId;
     }
 
     public String getCity() {
