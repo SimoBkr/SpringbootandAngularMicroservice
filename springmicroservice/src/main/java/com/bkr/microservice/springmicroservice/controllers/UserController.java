@@ -36,17 +36,22 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserResponse> getAllUsers(@RequestParam(value = "page" , defaultValue = "1") int page ,@RequestParam(value = "limit" , defaultValue = "2") int limit) {
+    public List<UserResponse> getAllUsers(@RequestParam(value = "page" , defaultValue = "1") int page
+            ,@RequestParam(value = "limit" , defaultValue = "2") int limit
+            ,@RequestParam(value = "search" , defaultValue = "") String search
+            ,@RequestParam(value = "status" , defaultValue = "0") int status) {
 
         List<UserResponse> usersResponse= new ArrayList<UserResponse>();
 
-        List<UserDto> users =userService.getUsers(page,limit);
+        List<UserDto> users =userService.getUsers(page,limit,search,status);
 
         for(UserDto userDto : users) {
             UserResponse user = new UserResponse();
-            BeanUtils.copyProperties(userDto,user);
 
-            usersResponse.add(user);
+            ModelMapper modelMapper = new ModelMapper();
+            UserResponse userResponse =  modelMapper.map(userDto,UserResponse.class);
+
+            usersResponse.add(userResponse);
         }
         return usersResponse;
     }

@@ -66,25 +66,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> getUsers(int page, int limit) {
+    public List<UserDto> getUsers(int page, int limit,String search,int status) {
 
         if(page >0) page -=1;
 
         List<UserDto> usersResponse = new ArrayList<>();
         Pageable pageable = PageRequest.of(page, limit);
 
-        Page<UserEntity> userPage = userRepository.findAll(pageable);
+        Page<UserEntity> userPage ;
+
+        if(search.isEmpty()) {
+             userPage = userRepository.findAllUsers(pageable);
+        }else {
+             userPage = userRepository.findAllByCriteria(pageable,search,status);
+        }
+
         List<UserEntity>users = userPage.getContent();
 
         for(UserEntity userEntity : users) {
             UserDto userDto = new UserDto();
-            BeanUtils.copyProperties(userEntity,userDto);
 
-            usersResponse.add(userDto);
+            ModelMapper modelMapper = new ModelMapper();
+            UserDto user =  modelMapper.map(userEntity,UserDto.class);
+
+            usersResponse.add(user);
         }
 
         return usersResponse;
     }
+
 
     @Override
     public UserDto getUser(String email) {

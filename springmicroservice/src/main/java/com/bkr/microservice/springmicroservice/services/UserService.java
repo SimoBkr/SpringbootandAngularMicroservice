@@ -1,6 +1,8 @@
 package com.bkr.microservice.springmicroservice.services;
 
+import com.bkr.microservice.springmicroservice.entities.UserEntity;
 import com.bkr.microservice.springmicroservice.shared.dto.UserDto;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,9 @@ public interface UserService extends UserDetailsService{
 
     String deleteUser(String userid);
 
-    List<UserDto> getUsers(int page,int limit);
+    List<UserDto> getUsers(int page,int limit,String search,int status);
+
+    //List<UserDto> getAllUsers();
 }
 
 

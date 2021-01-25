@@ -2,7 +2,9 @@ package com.bkr.microservice.springmicroservice.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "users")
 public class UserEntity implements Serializable {
@@ -37,6 +39,9 @@ public class UserEntity implements Serializable {
 
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
     private ContactEntity contacts;
+
+    @ManyToMany(fetch = FetchType.LAZY,mappedBy = "users" , cascade = CascadeType.ALL)
+    private Set<GroupEntity> groups = new HashSet<>();
 
     public long getId() {
         return id;
