@@ -24,15 +24,9 @@ public class UserRequest {
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$" , message = "ce mot de passe doit avoir des letters en Maj et Minsc et numero")
     private String password;
 
-    private List<AddressRequest> adresses ;
+    private List<AddressRequest> addresses ;
 
-    public List<AddressRequest> getAdresses() {
-        return adresses;
-    }
-
-    public void setAdresses(List<AddressRequest> adresses) {
-        this.adresses = adresses;
-    }
+    private ContactRequest contacts ;
 
     public String getUserName() {
         return userName;
@@ -64,5 +58,21 @@ public class UserRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<AddressRequest> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<AddressRequest> addresses) {
+        this.addresses = addresses;
+    }
+
+    public ContactRequest getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(ContactRequest contacts) {
+        this.contacts = contacts;
     }
 }

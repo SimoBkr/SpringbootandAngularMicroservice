@@ -8,15 +8,15 @@ public class UserResponse {
     private String userName;
     private String lastName;
     private String email;
-    private List<AddressResponse> adresses;
+    private List<AddressResponse> addresses;
+    private ContactResponse contacts ;
 
-
-    public List<AddressResponse> getAdresses() {
-        return adresses;
+    public List<AddressResponse> getAddresses() {
+        return addresses;
     }
 
-    public void setAdresses(List<AddressResponse> adresses) {
-        this.adresses = adresses;
+    public void setAddresses(List<AddressResponse> addresses) {
+        this.addresses = addresses;
     }
 
     public String getUserId() {
@@ -49,5 +49,13 @@ public class UserResponse {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public ContactResponse getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(ContactResponse contacts) {
+        this.contacts = contacts;
     }
 }

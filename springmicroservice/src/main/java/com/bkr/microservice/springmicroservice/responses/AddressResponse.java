@@ -1,7 +1,7 @@
 package com.bkr.microservice.springmicroservice.responses;
 
 
-class AddressResponse {
+public class AddressResponse {
 
     private String addressId;
     private String city;
@@ -9,21 +9,12 @@ class AddressResponse {
     private String street;
     private String postal;
     private String type;
-    private UserResponse user;
 
-    public UserResponse getUser() {
-        return user;
-    }
-
-    public void setUser(UserResponse user) {
-        this.user = user;
-    }
-
-    public String getAdressId() {
+    public String getAddressId() {
         return addressId;
     }
 
-    public void setAdressId(String addressId) {
+    public void setAddressId(String addressId) {
         this.addressId = addressId;
     }
 

@@ -1,6 +1,6 @@
 package com.bkr.microservice.springmicroservice.requests;
 
-class AddressRequest {
+public class AddressRequest {
 
     private String city ;
     private String country;
@@ -43,6 +43,7 @@ class AddressRequest {
     public String getType() {
         return type;
     }
+
     public void setType(String type) {
         this.type = type;
     }

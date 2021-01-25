@@ -32,16 +32,11 @@ public class UserEntity implements Serializable {
     @Column(nullable = false )
     private Boolean emailVerificationStatus = false;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<AddresseEntity> adresses ;
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    private List<AddressEntity> addresses;
 
-    public List<AddresseEntity> getAdresses() {
-        return adresses;
-    }
-
-    public void setAdresses(List<AddresseEntity> adresses) {
-        this.adresses = adresses;
-    }
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    private ContactEntity contacts;
 
     public long getId() {
         return id;
@@ -105,5 +100,21 @@ public class UserEntity implements Serializable {
 
     public void setEmailVerificationStatus(Boolean emailVerificationStatus) {
         this.emailVerificationStatus = emailVerificationStatus;
+    }
+
+    public List<AddressEntity> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<AddressEntity> addresses) {
+        this.addresses = addresses;
+    }
+
+    public ContactEntity getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(ContactEntity contacts) {
+        this.contacts = contacts;
     }
 }

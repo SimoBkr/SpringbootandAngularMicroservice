@@ -2,7 +2,7 @@ package com.bkr.microservice.springmicroservice.shared.dto;
 
 import java.io.Serializable;
 
-public class AdresseDto implements Serializable {
+public class AddressDto implements Serializable {
 
     private long id;
     private String addressId;
@@ -13,12 +13,12 @@ public class AdresseDto implements Serializable {
     private String type;
     private UserDto user;
 
-    public UserDto getUser() {
-        return user;
+    public long getId() {
+        return id;
     }
 
-    public void setUser(UserDto user) {
-        this.user = user;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getAddressId() {
@@ -27,14 +27,6 @@ public class AdresseDto implements Serializable {
 
     public void setAddressId(String addressId) {
         this.addressId = addressId;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getCity() {
@@ -75,5 +67,13 @@ public class AdresseDto implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
     }
 }

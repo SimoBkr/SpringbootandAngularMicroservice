@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity(name = "addresses")
-class AddresseEntity implements Serializable {
+public class AddressEntity implements Serializable {
 
     @Id @GeneratedValue
     private long id;
@@ -32,6 +32,22 @@ class AddresseEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "users_id")
     private UserEntity user;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
+    }
 
     public UserEntity getUser() {
         return user;

@@ -14,14 +14,15 @@ public class UserDto implements Serializable {
     private String encryptedpassword;
     private String emailVerificationToken;
     private Boolean emailVerificationStatus = false;
-    private List<AdresseDto> adresses ;
+    private List<AddressDto> addresses ;
+    private ContactDao contacts;
 
-    public List<AdresseDto> getAdresses() {
-        return adresses;
+    public ContactDao getContacts() {
+        return contacts;
     }
 
-    public void setAdresses(List<AdresseDto> adresses) {
-        this.adresses = adresses;
+    public void setContacts(ContactDao contacts) {
+        this.contacts = contacts;
     }
 
     public long getId() {
@@ -103,4 +104,13 @@ public class UserDto implements Serializable {
     public void setEmailVerificationStatus(boolean emailVerificationStatus) {
         this.emailVerificationStatus = emailVerificationStatus;
     }
+
+    public List<AddressDto> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<AddressDto> addresses) {
+        this.addresses = addresses;
+    }
+
 }
