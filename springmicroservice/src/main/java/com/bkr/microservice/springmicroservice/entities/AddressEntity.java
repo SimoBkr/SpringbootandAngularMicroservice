@@ -33,6 +33,7 @@ public class AddressEntity implements Serializable {
     @JoinColumn(name = "users_id")
     private UserEntity user;
 
+
     public long getId() {
         return id;
     }

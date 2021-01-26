@@ -11,6 +11,16 @@ public class UserResponse {
     private List<AddressResponse> addresses;
     private ContactResponse contacts ;
 
+    private Boolean admin;
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
+
     public List<AddressResponse> getAddresses() {
         return addresses;
     }

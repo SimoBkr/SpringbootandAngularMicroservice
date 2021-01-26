@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
         List<UserEntity>users = userPage.getContent();
 
         for(UserEntity userEntity : users) {
-            UserDto userDto = new UserDto();
+           // UserDto userDto = new UserDto();
 
             ModelMapper modelMapper = new ModelMapper();
             UserDto user =  modelMapper.map(userEntity,UserDto.class);

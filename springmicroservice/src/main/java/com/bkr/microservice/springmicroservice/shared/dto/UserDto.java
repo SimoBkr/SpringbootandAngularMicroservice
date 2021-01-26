@@ -17,6 +17,16 @@ public class UserDto implements Serializable {
     private List<AddressDto> addresses ;
     private ContactDao contacts;
 
+    private Boolean admin;
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
+
     public ContactDao getContacts() {
         return contacts;
     }

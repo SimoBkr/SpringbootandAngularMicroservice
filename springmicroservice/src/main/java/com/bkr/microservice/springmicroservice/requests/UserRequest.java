@@ -28,6 +28,17 @@ public class UserRequest {
 
     private ContactRequest contacts ;
 
+    @NotBlank
+    private Boolean admin;
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
+
     public String getUserName() {
         return userName;
     }
