@@ -1,11 +1,28 @@
 package com.bkr.microservice.springmicroservice.requests;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class AddressRequest {
 
+    @NotBlank(message = "Ce champ ne doit pas etre null")
+    @Size(min = 3,message = "Ce champ ne doit pas etre moins de 3 caractere")
     private String city ;
+
+    @NotBlank(message = "Ce champ ne doit pas etre null")
+    @Size(min = 3,message = "Ce champ ne doit pas etre moins de 3 caractere")
     private String country;
+
+    @NotBlank(message = "Ce champ ne doit pas etre null")
+    @Size(min = 5,message = "Ce champ ne doit pas etre moins de 3 caractere")
     private String street;
+
+    @NotBlank(message = "Ce champ ne doit pas etre null")
+    @Size(min = 4,message = "Ce champ ne doit pas etre moins de 3 caractere")
     private String postal ;
+
+    @NotBlank(message = "Ce champ ne doit pas etre null")
+    @Size(min = 3,message = "Ce champ ne doit pas etre moins de 3 caractere")
     private String type ;
 
     public String getCity() {

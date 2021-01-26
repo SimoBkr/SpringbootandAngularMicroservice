@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface AddressService {
 
+    AddressDto createAddress(AddressDto addressDto , String email);
     List<AddressDto> getAllAddresses(String email);
 }
