@@ -1,10 +1,15 @@
 package com.bkr.microservice.springmicroservice.controllers;
 
 import com.bkr.microservice.springmicroservice.requests.AddressRequest;
+import com.bkr.microservice.springmicroservice.requests.UserRequest;
 import com.bkr.microservice.springmicroservice.responses.AddressResponse;
+import com.bkr.microservice.springmicroservice.responses.UserResponse;
 import com.bkr.microservice.springmicroservice.services.AddressService;
 import com.bkr.microservice.springmicroservice.shared.dto.AddressDto;
+import com.bkr.microservice.springmicroservice.shared.dto.UserDto;
+import org.apache.tomcat.jni.Address;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +45,30 @@ public class AddressController {
         return addresses;
     }
 
+    @GetMapping(path= "/{addressId}")
+    public ResponseEntity<AddressResponse> getAddresse(@PathVariable String addressId){
+
+            AddressDto addressesDto = addressService.getAllAddresse(addressId);
+            ModelMapper modelMapper = new ModelMapper();
+            AddressResponse addressResponse = modelMapper.map(addressesDto,AddressResponse.class);
+
+        return new ResponseEntity<AddressResponse>(addressResponse,HttpStatus.OK);
+    }
+
+    @PutMapping(path = "/{addressId}")
+    public ResponseEntity<AddressResponse> updateAddress(@PathVariable String addressId , @RequestBody AddressRequest addressRequest) {
+
+        AddressDto addressDto = addressService.getAllAddresse(addressId);
+
+        BeanUtils.copyProperties(addressRequest,addressDto);
+
+        AddressDto updateAddress = addressService.updateAddress(addressId ,addressDto);
+        AddressResponse addressResponse = new AddressResponse();
+        BeanUtils.copyProperties(updateAddress,addressResponse);
+
+        return new ResponseEntity<AddressResponse>(addressResponse,HttpStatus.ACCEPTED);
+    }
+
     @PostMapping
     public ResponseEntity<AddressResponse> createAddress(@RequestBody @Valid AddressRequest addressRequest , Principal principal) {
 
@@ -56,4 +85,11 @@ public class AddressController {
         return new ResponseEntity<AddressResponse>(addressResponse,HttpStatus.CREATED);
 
     }
+
+    @DeleteMapping("/{addressId}")
+    public String deleteAddress(@PathVariable String addressId) {
+
+        return addressService.deleteAddress(addressId);
+    }
+
 }

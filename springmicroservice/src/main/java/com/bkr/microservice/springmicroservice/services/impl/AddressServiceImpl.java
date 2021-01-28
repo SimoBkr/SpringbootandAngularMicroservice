@@ -6,9 +6,12 @@ import com.bkr.microservice.springmicroservice.entities.AddressEntity;
 import com.bkr.microservice.springmicroservice.entities.UserEntity;
 import com.bkr.microservice.springmicroservice.services.AddressService;
 import com.bkr.microservice.springmicroservice.shared.dto.AddressDto;
+import com.bkr.microservice.springmicroservice.shared.dto.UserDto;
 import com.bkr.microservice.springmicroservice.shared.dto.Utils;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -63,6 +66,60 @@ public class AddressServiceImpl implements AddressService {
             addressesDto.add(addressDto);
         }
         return addressesDto;
+    }
+
+    @Override
+    public AddressDto getAllAddresse(String addressId) {
+
+
+            AddressDto addressDto = new AddressDto();
+
+            AddressEntity addresses = addressRepository.findByAddressId(addressId);
+            ModelMapper modelMapper = new ModelMapper();
+
+             addressDto = modelMapper.map(addresses,AddressDto.class);
+
+        return addressDto;
+    }
+
+    @Override
+    public AddressDto updateAddress(String addressId, AddressDto addressDto) {
+
+        AddressEntity addressEntity = addressRepository.findByAddressId(addressId);
+
+        if(addressEntity == null) throw new UsernameNotFoundException(addressId);
+
+        addressEntity.setCity(addressDto.getCity());
+        addressEntity.setCountry(addressDto.getCountry());
+        addressEntity.setPostal(addressDto.getPostal());
+        addressEntity.setStreet(addressDto.getStreet());
+        addressEntity.setType(addressDto.getType());
+
+        addressRepository.save(addressEntity);
+
+        AddressDto addressUpdated = new AddressDto();
+        BeanUtils.copyProperties(addressEntity,addressUpdated);
+
+        return addressUpdated;
+    }
+
+    @Override
+    public String deleteAddress(String addressId) {
+
+        AddressEntity address = addressRepository.findByAddressId(addressId);
+
+        if(address == null) throw new RuntimeException("Address not found");
+
+        addressRepository.delete(address);
+
+        if(addressRepository.findByAddressId(addressId) != null) {
+            System.out.println("Hi Hi I'm not deleted");
+        }else{
+            System.out.println("Ohhh Sheet Good By i'm dead!! ");
+        }
+
+        return "Address was Deleted";
+
     }
 
 }
