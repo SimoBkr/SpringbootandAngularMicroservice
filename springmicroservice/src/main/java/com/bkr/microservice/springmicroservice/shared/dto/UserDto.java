@@ -16,7 +16,6 @@ public class UserDto implements Serializable {
     private Boolean emailVerificationStatus = false;
     private List<AddressDto> addresses ;
     private ContactDao contacts;
-
     private Boolean admin;
 
     public Boolean getAdmin() {

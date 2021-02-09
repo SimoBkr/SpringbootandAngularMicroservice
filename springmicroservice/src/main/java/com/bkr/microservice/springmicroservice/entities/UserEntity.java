@@ -43,7 +43,7 @@ public class UserEntity implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY,mappedBy = "users" , cascade = CascadeType.ALL)
     private Set<GroupEntity> groups = new HashSet<>();
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Boolean admin;
 
     public Boolean getAdmin() {

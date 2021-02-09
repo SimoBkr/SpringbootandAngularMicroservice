@@ -10,7 +10,6 @@ public class UserResponse {
     private String email;
     private List<AddressResponse> addresses;
     private ContactResponse contacts ;
-
     private Boolean admin;
 
     public Boolean getAdmin() {

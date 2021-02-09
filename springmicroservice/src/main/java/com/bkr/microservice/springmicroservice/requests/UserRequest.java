@@ -28,7 +28,6 @@ public class UserRequest {
 
     private ContactRequest contacts ;
 
-    @NotBlank
     private Boolean admin;
 
     public Boolean getAdmin() {
